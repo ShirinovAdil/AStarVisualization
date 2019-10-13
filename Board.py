@@ -18,6 +18,8 @@ class chess_board:
 
         self.root = Tk()
         self.default_size = board_size * 60
+        self.start_flag = False
+        self.finish_flag = False
 
         s_img = PIL.Image.open("start.png")
         s_img = s_img.resize((60, 60))
@@ -46,12 +48,20 @@ class chess_board:
         self.canvas.pack(expand=YES, fill=BOTH)
         self.createCanvas(board_size)
 
-        #Find the path button
-        find_path_button = Button(self.canvas, text="Find the path", command=self.showCalculatedWay) #then doo it
+        # Find the path button
+        find_path_button = Button(
+            self.canvas, text="Find the path", command=self.showCalculatedWay)  # then doo it
         find_path_button.pack()
-        find_path_button.place(x=self.default_size + 50, y=0)
+        find_path_button.place(x=self.default_size + 50, y=10)
 
-
+        restart_button = Button(self.root, text="Restart",
+                                command=self.restart_program)
+        restart_button.place(x=self.default_size + 50, y=50)
+        # hesablayir mi? yoxla
+        # vehshi kimi
+        # sex
+        # and thanks <3
+        # biri getdi necesi qaldi?
 
         # Bind button clicks
         self.canvas.bind("<Button-1>", self.mouse_click)
@@ -66,13 +76,16 @@ class chess_board:
     def returnChessArray(self):
         return self.chess_board_arr
 
+    def restart_program(self):
+        self.root.destroy()
+        chess_board(13)
 
     def mouse_click(self, event):
         # Wall
-        x = math.ceil(event.x/60-1)
-        y = math.ceil(event.y/60-1)
+        x = math.ceil(event.x / 60 - 1)
+        y = math.ceil(event.y / 60 - 1)
         if self.chess_board_arr[x][y] == 0:
-            self.putFigure(x,y)
+            self.putFigure(x, y)
             self.chess_board_arr[x][y] = 1
         else:
             self.deleteFigure(x, y)
@@ -90,41 +103,45 @@ class chess_board:
         self.canvas.create_image(
             x * 60 + 30, y * 60 + 30, image=self.wall_image)
 
-
     def deleteFigure(self, x, y):
-        self.canvas.create_rectangle(x * 60, y * 60, x * 60 + 60, y * 60 + 60, fill="#F9F9F9" )
-
+        self.canvas.create_rectangle(
+            x * 60, y * 60, x * 60 + 60, y * 60 + 60, fill="#F9F9F9")
 
     def RightMouseClick(self, event):
         # START
-        x = math.ceil(event.x/60-1)
-        y = math.ceil(event.y/60-1)
+        if self.start_flag:
+            return
+        x = math.ceil(event.x / 60 - 1)
+        y = math.ceil(event.y / 60 - 1)
         if self.chess_board_arr[x][y] == 0:
-            self.putStart(x,y)
+            self.putStart(x, y)
             self.startXY = (y, x)
+            self.start_flag = True
         else:
             self.deleteFigure(x, y)
+            self.start_flag = False
 
     def putStart(self, x, y):
         self.canvas.create_image(
             x * 60 + 30, y * 60 + 30, image=self.start_img)
 
-
     def MidMouseClick(self, event):
         # END
-        x = math.ceil(event.x/60-1)
-        y = math.ceil(event.y/60-1)
+        if self.finish_flag:
+            return
+        x = math.ceil(event.x / 60 - 1)
+        y = math.ceil(event.y / 60 - 1)
         if self.chess_board_arr[x][y] == 0:
-            self.putEnd(x,y)
+            self.putEnd(x, y)
             self.endXY = (y, x)
+            self.finish_flag = True
         else:
+            self.finish_flag = False
             self.deleteFigure(x, y)
 
     def putEnd(self, x, y):
         self.canvas.create_image(
             x * 60 + 30, y * 60 + 30, image=self.goal_img)
-
-
 
     def showCalculatedWay(self):
 
@@ -134,8 +151,6 @@ class chess_board:
         for each in path_array[1:-1:]:
             self.canvas.create_image(
                 each[1] * 60 + 30, each[0] * 60 + 30, image=self.path_img)
-
-
 
         # BABAT, HESABLADI ONCLICK
         # MY REGULAR CODE mence men cox dolashdirdim
