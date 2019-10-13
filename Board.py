@@ -57,11 +57,7 @@ class chess_board:
         restart_button = Button(self.root, text="Restart",
                                 command=self.restart_program)
         restart_button.place(x=self.default_size + 50, y=50)
-        # hesablayir mi? yoxla
-        # vehshi kimi
-        # sex
-        # and thanks <3
-        # biri getdi necesi qaldi?
+        
 
         # Bind button clicks
         self.canvas.bind("<Button-1>", self.mouse_click)
@@ -152,9 +148,4 @@ class chess_board:
             self.canvas.create_image(
                 each[1] * 60 + 30, each[0] * 60 + 30, image=self.path_img)
 
-        # BABAT, HESABLADI ONCLICK
-        # MY REGULAR CODE mence men cox dolashdirdim
-        # NEBILIM gor davamin neynirsen
-        # OKEY, GEDIM YEMEK YEYEIM BAXARAM
-        # eslinde solva return type verib bunu hell elemek olarmi/& olar mence
-        # gedim zapravka edim nush
+        
