@@ -45,7 +45,6 @@ import numpy as np
 import Board
 
 
-
 class Node:
     """A node class for A*"""
 
@@ -53,9 +52,9 @@ class Node:
         self.parent = parent
         self.position = position
 
-        self.g = 0 # From current node to start node
-        self.h = 0 # Heuristic -> Estimated from current to end(destination)
-        self.f = 0 # F = G + H
+        self.g = 0  # From current node to start node
+        self.h = 0  # Heuristic -> Estimated from current to end(destination)
+        self.f = 0  # F = G + H
 
     def __eq__(self, other):
         return self.position == other.position
@@ -93,22 +92,23 @@ def AStar(maze, start, end):
 
         # Check if reached the destination
         if current_node == end_node:
-            path = [] # Will keep traversed path
+            path = []  # Will keep traversed path
             current = current_node
             while current is not None:
                 path.append(current.position)
                 current = current.parent
-            return path[::-1] # Traverse the path back
+            return path[::-1]  # Traverse the path back
 
         # Generate children, explained below
         children = []
-        for new_position in [(0, -1), (0, 1), (-1, 0), (1, 0), (-1, -1), (-1, 1), (1, -1), (1, 1)]: # Smejniye kvadrati
+        # Smejniye kvadrati
+        for new_position in [(0, -1), (0, 1), (-1, 0), (1, 0), (-1, -1), (-1, 1), (1, -1), (1, 1)]:
             # Get node position
-            node_position = (current_node.position[0] + new_position[0], current_node.position[1] + new_position[1])
-
+            node_position = (
+                current_node.position[0] + new_position[0], current_node.position[1] + new_position[1])
 
             # Make sure new square is within the range
-            if node_position[0] > (len(maze) - 1) or node_position[0] < 0 or node_position[1] > (len(maze[len(maze)-1]) -1) or node_position[1] < 0:
+            if node_position[0] > (len(maze) - 1) or node_position[0] < 0 or node_position[1] > (len(maze[len(maze) - 1]) - 1) or node_position[1] < 0:
                 continue
 
             if maze[node_position[0]][node_position[1]] != 0:
@@ -132,7 +132,8 @@ def AStar(maze, start, end):
 
             # Create the f, g, and h values
             child.g = current_node.g + 1
-            child.h = ( (child.position[0] - end_node.position[0]) ** 2) + ((child.position[1] - end_node.position[1]) ** 2)
+            child.h = ((child.position[0] - end_node.position[0]) **
+                       2) + ((child.position[1] - end_node.position[1]) ** 2)
             child.f = child.g + child.h
 
             # Child is already in the open list
@@ -143,20 +144,24 @@ def AStar(maze, start, end):
             # Add the child to the open list
             open_list.append(child)
 
+
 class Green:
     TO_GREEN = None
+
     def __init__(self, path):
         Green.TO_GREEN = path
 
+
 def main():
-    #print("IN")
+    # print("IN")
     obj1 = Board.chess_board(13)
+
 
 def solve(obj1):
     maze = obj1.returnChessArray()
     temp_maze = np.array(maze)
     maze = (temp_maze.T).tolist()
-    #print(maze)
+    # print(maze)
 
     start = obj1.startXY
     end = obj1.endXY
@@ -168,11 +173,6 @@ def solve(obj1):
 
 if __name__ == '__main__':
     main()
-
-
-
-
-
 
 
 """
@@ -201,4 +201,3 @@ if __name__ == '__main__':
 
         //----------- 1st Successor (North) ------------
 """
-
