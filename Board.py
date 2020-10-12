@@ -20,23 +20,23 @@ class chess_board:
         self.start_flag = False
         self.finish_flag = False
 
-        s_img = PIL.Image.open("start.png")
+        s_img = PIL.Image.open("img/start.png")
         s_img = s_img.resize((60, 60))
         self.start_img = ImageTk.PhotoImage(s_img)
 
-        g_img = PIL.Image.open("finish.png")
+        g_img = PIL.Image.open("img/finish.png")
         g_img = g_img.resize((60, 60))
         self.goal_img = ImageTk.PhotoImage(g_img)
 
-        img = PIL.Image.open("wall2.png")
+        img = PIL.Image.open("img/wall2.png")
         img = img.resize((60, 60))
         self.wall_image = ImageTk.PhotoImage(img)
 
-        p_img = PIL.Image.open("way.png")
+        p_img = PIL.Image.open("img/way.png")
         p_img = p_img.resize((59, 59))
         self.path_img = ImageTk.PhotoImage(p_img)
 
-        child_img = PIL.Image.open("child2.png")
+        child_img = PIL.Image.open("img/child2.png")
         child_img = child_img.resize((59, 59))
         self.children_img = ImageTk.PhotoImage(child_img)
 
